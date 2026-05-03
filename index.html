@@ -3,222 +3,670 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROTOR X | Powering a Greener Egypt</title>
+    <title>ROTOR X | Next-Gen Wind Energy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Fonts: Orbitron for the ROG look, Inter for readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* === COLOR PALETTE & GLOBAL STYLES === */
         :root {
-            --primary-blue: #003366;    /* Deep, professional blue */
-            --accent-orange: #FF6600;   /* Energetic, bright orange */
-            --light-bg: #f4f7f6;        /* Soft background color */
+            --bg-color: #f5f5f7;
+            --card-blue: #003366;
+            --rotor-cyan: #00CCFF; 
+            --rotor-orange: #ff6600;
+            --text-dark: #1d1d1f;
             --white: #ffffff;
-            --text-dark: #333333;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
             margin: 0;
             padding: 0;
-            background-color: var(--light-bg);
-            color: var(--text-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 204, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 102, 0, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
-        /* === HEADER === */
-        header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 4rem 2rem;
-            border-bottom: 8px solid var(--accent-orange);
+        /* === NAV === */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1200px;
+            padding: 10px 35px;
+            border-radius: 100px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
         }
 
-        header h1 {
-            font-size: 3.5rem;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            margin-top: 10px;
-        }
-
-        /* === MAIN LAYOUT === */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        section {
-            background: var(--white);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--primary-blue);
-        }
-
-        h2 {
-            color: var(--primary-blue);
-            border-bottom: 2px solid var(--accent-orange);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            margin-top: 0;
-        }
-
-        h3 {
-            color: var(--accent-orange);
-        }
-
-        /* === LISTS & TABLES === */
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: var(--primary-blue);
-            color: var(--white);
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        /* === QUOTE / FOOTER === */
-        blockquote {
-            background: #e9f0f5;
-            border-left: 5px solid var(--accent-orange);
-            margin: 2rem 0;
-            padding: 1.5rem;
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 26px;
+            letter-spacing: -1.5px;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
             font-style: italic;
-            font-size: 1.1rem;
         }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--text-dark);
-            color: var(--white);
-            font-size: 0.9rem;
+        .logo .blue-text { color: var(--rotor-cyan); }
+        .logo .orange-x { color: var(--rotor-orange); margin-left: 2px; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 16px;
+            transition: 0.3s;
+            border-radius: 20px;
         }
+
+        .nav-links a:hover {
+            color: var(--rotor-orange);
+            background: rgba(255, 102, 0, 0.1);
+        }
+
+        /* === BENTO GRIDS === */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 25px;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card, .info-box {
+            border-radius: 40px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .info-box {
+            background: var(--white);
+            padding: 40px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .hero-card {
+            grid-row: span 2;
+            background-color: var(--card-blue);
+            color: var(--white);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-card h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.1; margin: 0 0 20px 0; }
+
+        .stats-card {
+            background-color: var(--rotor-orange);
+            color: var(--white);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stat-val { font-size: 60px; font-weight: 800; margin: 0; }
+
+        .results-highlight {
+            background: var(--card-blue);
+            color: white;
+            padding: 50px;
+            margin: 20px 5%;
+            border-radius: 40px;
+            max-width: 1400px;
+        }
+
+        /* === MATERIALS TABLE STYLES === */
+        .material-table {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .table-header {
+            display: flex;
+            background: #003366;
+            color: white;
+            padding: 15px 40px;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .material-row {
+            display: flex;
+            align-items: center;
+            padding: 25px 40px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .material-row:last-child { border-bottom: none; }
+
+        .img-bg-wrapper {
+            width: 30%;
+            min-width: 180px;
+            background-color: #f8f9fa;
+            border-radius: 25px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+            height: 140px;
+        }
+
+        .img-bg-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .material-text-box {
+            width: 70%;
+        }
+
+        .material-text-box h4 {
+            color: var(--rotor-orange);
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .material-text-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .compact-bg {
+            height: 100px; 
+            padding: 10px;
+        }
+
+        .compact-row {
+            padding: 15px 40px;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .rotor-spin { display: inline-block; animation: spin 6s linear infinite; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .btn {
+            display: inline-block;
+            background: var(--white);
+            color: var(--card-blue);
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            width: fit-content;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: var(--rotor-cyan); transform: scale(1.05); }
+
+        @media (max-width: 900px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .material-row { flex-direction: column; text-align: center; }
+            .img-bg-wrapper { margin-right: 0; margin-bottom: 20px; width: 100%; }
+            .material-text-box { width: 100%; }
+            .mechanism-grid { grid-template-columns: 1fr !important; }
+        }
+        
     </style>
+    <!-- MathJax for rendering equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
-    <header>
-        <h1>🌀 ROTOR X</h1>
-        <p>Powering a Greener Egypt: Decentralized, Gearbox-Enhanced Horizontal Axis Wind Turbine</p>
-    </header>
+    <nav>
+        <div class="logo">
+            <span class="blue-text">ROTOR</span><span class="orange-x">X</span>
+        </div>
+        <div class="nav-links">
+            <a href="#introduction">Intro</a>
+            <a href="#mechanism">Mechanism</a>
+            <a href="#results">Results</a>
+            <a href="#futures">Futures</a>
+        </div>
+    </nav>
 
-    <div class="container">
-        
-        <!-- SECTION 1: Introduction -->
-        <section id="introduction">
-            <h2>1. Introduction</h2>
-            <p>Egypt currently faces significant "Grand Challenges," including the need to improve alternative energy and adapt to climate change[cite: 1]. With approximately <strong>20,000 GWh</strong> of electricity generated monthly—90% of which still comes from non-renewable fossil fuels—the nation’s carbon footprint remains a critical issue[cite: 1].</p>
-            
-            <h3>The Problem</h3>
-            <p>Small-scale renewable systems often suffer from low efficiency and high operational costs, especially in environments with inconsistent wind[cite: 1].</p>
-            
-            <h3>Our Solution</h3>
-            <p>The <strong>ROTOR X</strong> is a Horizontal Axis Wind Turbine (HAWT) integrated with a mechanical gearbox speed multiplier[cite: 1]. Unlike Vertical Axis (VAWT) models, our HAWT design allows for higher aerodynamic efficiency by transforming low-speed rotation into high-speed induction for the generator[cite: 1].</p>
-        </section>
+    <!-- HERO -->
+    <div class="grid-container" id="hero">
+        <div class="card hero-card reveal">
+            <h1>Powering the Future of Egypt <span class="rotor-spin">🌀</span></h1>
+            <p>Developing decentralized, gearbox-enhanced wind turbines to solve energy challenges.</p>
+            <a href="#mechanism" class="btn">Explore Design</a>
+        </div>
 
-        <!-- SECTION 2: Mechanism & Design -->
-        <section id="mechanism">
-            <h2>2. Mechanism & Design</h2>
-            <p>Our design utilizes key scientific principles to maximize power output:</p>
-            <ul>
-                <li><strong>Aerodynamics:</strong> We used <em>NACA 4412</em> airfoil blades, which create lift based on <strong>Bernoulli’s Principle</strong>—as air moves faster over the curved upper surface, pressure decreases, pulling the blade upward[cite: 1].</li>
-                <li><strong>Pitch Control:</strong> We implemented a pitch control system to maintain an optimal <strong>angle of attack (5° to 8°)</strong>, ensuring the blades always face the wind effectively[cite: 1].</li>
-                <li><strong>The Gearbox:</strong> By changing the gear ratio from <strong>1:3 to 1:4</strong>, we successfully bridged the gap between low kinetic wind input and the generator’s induction threshold[cite: 1].</li>
-                <li><strong>Materials:</strong> Built at the Fab Lab using recycled, eco-friendly materials including 3D-printed PLA, MDF wood, and recycled aluminum cans[cite: 1].</li>
-            </ul>
-        </section>
+        <div class="card reveal" style="background: url('Wind turbine captured.DNG') center/cover; min-height: 300px; transition-delay: 0.2s;"></div>
 
-        <!-- SECTION 3: Analysis & Results -->
-        <section id="analysis">
-            <h2>3. Analysis & Results</h2>
-            <p>We tested the prototype in two phases to measure its efficiency against our design requirement of producing at least <strong>150 Joules</strong> in 5 minutes[cite: 1].</p>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Testing Phase</th>
-                        <th>Energy Produced (Joules)</th>
-                        <th>Efficiency Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Initial Phase</strong></td>
-                        <td>156.27 J</td>
-                        <td>Met Requirement[cite: 1]</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Enhancement Phase</strong></td>
-                        <td><strong>327.88 J</strong></td>
-                        <td><strong>109.8% Improvement</strong>[cite: 1]</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p><strong>Key Finding:</strong> The optimization of the gear ratio and blade alignment resulted in a total efficiency gain of <strong>109.8%</strong>, far exceeding our initial 10% target[cite: 1].</p>
-        </section>
-
-        <!-- SECTION 4: Recommendations -->
-        <section id="recommendations">
-            <h2>4. Recommendations</h2>
-            <p>No project is perfect, and to scale <strong>ROTOR X</strong> for national use, we recommend:</p>
-            <ol>
-                <li><strong>Smarter Materials:</strong> Using <strong>Carbon Fiber</strong> for blades to reduce weight while increasing strength and resistance to fatigue[cite: 1].</li>
-                <li><strong>Advanced Sensors:</strong> Integrating electronics to automatically identify the best pitch angle for changing wind speeds[cite: 1].</li>
-                <li><strong>Mechanical Safety:</strong> Adding <strong>braking pads</strong> to protect the turbine from damage during high-velocity wind storms[cite: 1].</li>
-            </ol>
-        </section>
-
-        <!-- SECTION 5: About Info -->
-        <section id="about">
-            <h2>5. About the Team: ROTOR X</h2>
-            <p><strong>School:</strong> Red Sea STEM School <br>
-               <strong>Grade:</strong> 10 (Semester 2, 2025/2026)[cite: 1]</p>
-            
-            <h3>Researchers:</h3>
-            <ul>
-                <li>Mohamed Ghar</li>
-                <li>Allam Hamed</li>
-                <li>Mahmoud Mostafa</li>
-                <li>Monsef Ahmed</li>
-                <li>Ahmed Alhussein[cite: 1]</li>
-            </ul>
-
-            <blockquote>
-                "This project offers a scalable model to mitigate climate change and support Egypt’s transition toward a green future."[cite: 1]
-            </blockquote>
-        </section>
-
+        <div class="card stats-card reveal" style="transition-delay: 0.4s;">
+            <p style="margin: 0; opacity: 0.9; font-weight: 800; text-transform: uppercase;">Efficiency Gain</p>
+            <h2 class="stat-val">109.8%</h2>
+            <p style="margin: 0; opacity: 0.8;">Post-Enhancement Phase</p>
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 ROTOR X Team | Red Sea STEM School</p>
+    <!-- INTRODUCTION -->
+    <section id="introduction" class="info-grid">
+        <div class="info-box reveal" style="grid-column: 1 / -1; background: #eef7ff; border-left: 6px solid var(--card-blue);">
+            <h2 style="color: var(--card-blue); font-weight: 800; margin-top: 0;">Introduction & Problem Statement</h2>
+            <p style="font-size: 17px; line-height: 1.7; color: #333;">
+                Egypt faces significant <strong>Grand Challenges</strong>, including the urgent need to improve alternative energy use and reduce a carbon footprint driven by a 90% reliance on fossil fuels. In response, our Capstone project—themed <strong>“Energy, Force, and Power”</strong>—aims to solve the inefficiencies and high costs of current centralized power grids.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 25px;">
+                <div style="background: white; padding: 20px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);">
+                    <h4 style="color: var(--rotor-orange); margin-top: 0;">The Problem</h4>
+                    <p style="font-size: 14px; margin-bottom: 0;">Small-scale renewable systems often fail to utilize inconsistent resources, resulting in unreliable output and low rotational speeds.</p>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);">
+                    <h4 style="color: var(--rotor-orange); margin-top: 0;">The Solution</h4>
+                    <p style="font-size: 14px; margin-bottom: 0;">A <strong>Horizontal Axis Wind Turbine (HAWT)</strong> equipped with a mechanical <strong>gearbox speed multiplier</strong> to maximize aerodynamic efficiency.</p>
+                </div>
+            </div>
+
+            <p style="font-size: 16px; margin-top: 25px; font-weight: 600; color: var(--card-blue);">
+                Design Constraints: <span style="font-weight: 400; color: #555;">Max volume of 0.25 m³ | Min output of 150 Joules in 5 minutes.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- MATERIALS SECTION -->
+    <section id="materials" style="padding: 60px 5%; max-width: 1200px; margin: 0 auto; line-height: 1.8;">
+        <div class="reveal" style="margin-bottom: 50px; text-align: center;">
+            <h2 style="color: var(--card-blue); font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 36px; text-transform: uppercase;">
+                Materials Breakdown
+            </h2>
+            <div style="width: 80px; height: 5px; background: var(--rotor-orange); margin: 15px auto; border-radius: 10px;"></div>
+        </div>
+
+        <div class="material-table">
+            <div class="table-header">
+                <div style="width: 30%;">Component Image</div>
+                <div style="width: 70%;">Technical Description & Purpose</div>
+            </div>
+
+            <!-- Row 1 -->
+            <div class="material-row reveal">
+                <div class="img-bg-wrapper">
+                    <img src="Acrylic sheet.jfif" alt="Acrylic Sheet">
+                </div>
+                <div class="material-text-box">
+                    <h4>Acrylic Sheet</h4>
+                    <p>Utilized for structural housing due to its high strength-to-weight ratio and transparency for visual inspection.</p>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="material-row reveal">
+                <div class="img-bg-wrapper">
+                    <img src="bearing.jpg" alt="Precision Bearing">
+                </div>
+                <div class="material-text-box">
+                    <h4>Precision Bearing</h4>
+                    <p>Critical for reducing rotational friction at the turbine hub, facilitating a lower startup wind speed.</p>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="material-row compact-row reveal">
+                <div class="img-bg-wrapper compact-bg">
+                    <img src="generator.png" alt="DC Gear Motor">
+                </div>
+                <div class="material-text-box">
+                    <h4>DC Gear Motor (GA25-370)</h4>
+                    <p>Primary generator unit. This 12V 600RPM motor converts mechanical rotation into electrical energy.</p>
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="material-row compact-row reveal">
+                <div class="img-bg-wrapper compact-bg">
+                    <img src="PLA+ .jpg" alt="PLA+ Filament">
+                </div>
+                <div class="material-text-box">
+                    <h4>PLA+ Filament</h4>
+                    <p>High-durability 3D printing material used to fabricate the NACA 4412 airfoil blades.</p>
+                </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="material-row compact-row reveal">
+                <div class="img-bg-wrapper compact-bg">
+                    <img src="Quick Adhesive.jpg" alt="Quick Adhesive">
+                </div>
+                <div class="material-text-box">
+                    <h4>Quick Adhesive & Activator</h4>
+                    <p>Industrial bonding system used to secure the gearbox assembly against high vibration forces.</p>
+                </div>
+            </div>
+
+            <!-- Row 6 -->
+            <div class="material-row reveal">
+                <div class="img-bg-wrapper">
+                    <img src="Rubicon-Panel-wire-green-yellow-webp.webp" alt="Panel Wiring">
+                </div>
+                <div class="material-text-box">
+                    <h4>Panel Wiring</h4>
+                    <p>Insulated copper wiring used to transmit power from the generator without significant resistance loss.</p>
+                </div>
+            </div>
+
+            <!-- Row 7 -->
+            <div class="material-row reveal">
+                <div class="img-bg-wrapper">
+                    <img src="Spruce_plywood.jfif" alt="Spruce Plywood">
+                </div>
+                <div class="material-text-box">
+                    <h4>Spruce Plywood</h4>
+                    <p>The foundation of the project. It provides a stable platform and dampens operational noise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENHANCED DESIGN & MECHANISM SECTION -->
+    <section id="mechanism" style="padding: 60px 5%; max-width: 1200px; margin: 0 auto; line-height: 1.8;">
+        
+        <div class="reveal" style="margin-bottom: 50px; text-align: center;">
+            <h2 style="color: var(--card-blue); font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 36px; text-transform: uppercase;">
+                Design & Mechanism
+            </h2>
+            <div style="width: 80px; height: 5px; background: var(--rotor-orange); margin: 15px auto; border-radius: 10px;"></div>
+        </div>
+
+        <!-- BLOCK 1: HISTORICAL CONTEXT & OVERVIEW -->
+        <div class="info-box reveal" style="margin-bottom: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;" class="mechanism-grid">
+            <div>
+                <p>
+                    Horizontal axis wind turbines (HAWTs) have a rich history dating back to the 12th century, with significant modern improvements established by pioneers like James Blyth and Poul la Cour. For our project, we selected a <strong>three-bladed HAWT</strong> configuration as the most suitable option for optimizing aerodynamic efficiency, stability, and economic viability.
+                </p>
+                <p>
+                    The length of each blade is fixed at <strong>42 cm</strong> to maximize the captured wind power. Despite these capabilities, the prototype maintains a footprint of 110 cm × 70 cm × 20 cm ($0.154\text{ m}^3$), comfortably satisfying our strict volume constraint of $0.25\text{ m}^3$.
+                </p>
+            </div>
+            <div style="text-align: center;">
+                <img src="figure6.png" alt="Three-bladed HAWT prototype assembly" style="max-width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">Figure 6: Three-bladed HAWT prototype assembly.</p>
+            </div>
+        </div>
+
+        <!-- BLOCK 2: PHYSICS & BERNOULLI -->
+        <div class="info-box reveal" style="margin-bottom: 40px; background: #f8f9fa;">
+            <h3 style="color: var(--card-blue); margin-top: 0;">Principles & Laws</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;" class="mechanism-grid">
+                <div style="text-align: center;">
+                    <img src="figure7.jpeg" alt="Pressure differentials over the airfoil" style="max-width: 100%; border-radius: 20px;">
+                    <p style="font-size: 12px; color: #666; margin-top: 10px;">Figure 7: Airflow visualization showing high and low pressure zones.</p>
+                </div>
+                <div>
+                    <p>
+                        Operation is primarily based on <strong>Bernoulli’s Principle</strong>, where faster-moving air over the curved upper surface creates low pressure, resulting in a lift force ($L$) that drives the rotor. This relationship is defined by:
+                    </p>
+                    <p style="background: white; padding: 15px; border-radius: 10px; text-align: center;">
+                        $$P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2$$
+                    </p>
+                    <p>
+                        To ensure peak performance, we utilize <strong>pitch control</strong> to maintain an optimal angle of attack between <strong>5° and 8°</strong>, maximizing the lift-to-drag ratio.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 3: AIRFOIL DESIGN -->
+        <div class="info-box reveal" style="margin-bottom: 40px; text-align: center;">
+            <h3 style="color: var(--card-blue);">NACA 0018 Airfoil Analysis</h3>
+            <img src="figure8.png" alt="NACA 0018 symmetric airfoil cross-section" style="max-width: 600px; width: 100%; margin: 20px 0; border-radius: 15px;">
+            <p style="max-width: 800px; margin: 0 auto;">
+                The <strong>NACA 0018</strong> airfoil features a symmetric cross-section, allowing for efficient lift generation and stable operation. This geometric precision ensures that the rotor delivers consistent rotational energy to the main shaft.
+            </p>
+        </div>
+
+        <!-- BLOCK 4: GEARS & MECHANICAL ADVANTAGE -->
+        <div class="info-box reveal" style="background: var(--card-blue); color: white;">
+            <h3 style="color: var(--rotor-cyan);">Gears' Mechanical Advantages</h3>
+            <p>
+                To bridge the gap between blade rotation and generator requirements, we implemented high-efficiency <strong>spur gears</strong> (up to 99% efficiency). By applying the principle of torque ($\tau = r \times F$), we increased the distance between the blade and shaft to generate more power.
+            </p>
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin-top: 20px;">
+                <p><strong>Speed Multiplication:</strong></p>
+                <p>
+                    We utilized a <strong>4:1 gear-tooth ratio</strong>. A 48-tooth driving gear fixed on the shaft transfers motion to a 12-tooth driven gear on the generator. Consequently, for every full rotation of the turbine blades, the generator spins four times.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPDATED RESULTS SECTION -->
+<section id="results" class="reveal" style="padding: 60px 5%; max-width: 1200px; margin: 0 auto;">
+    <div class="reveal" style="margin-bottom: 50px; text-align: center;">
+        <h2 style="color: var(--card-blue); font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 36px; text-transform: uppercase;">
+            Performance Analysis
+        </h2>
+        <div style="width: 80px; height: 5px; background: var(--rotor-orange); margin: 15px auto; border-radius: 10px;"></div>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px;">
+        <div class="info-box" style="text-align: center; border-bottom: 4px solid var(--rotor-cyan);">
+            <p style="text-transform: uppercase; font-weight: 800; font-size: 12px; color: #666;">Total Energy</p>
+            <h3 style="font-size: 42px; margin: 10px 0; color: var(--card-blue);">327.88 J</h3>
+            <p style="font-size: 14px; color: #888;">Measured over 5 mins After enhancement stage</p>
+        </div>
+        <div class="info-box" style="text-align: center; border-bottom: 4px solid var(--rotor-orange);">
+            <p style="text-transform: uppercase; font-weight: 800; font-size: 12px; color: #666;">Efficiency Gain</p>
+            <h3 style="font-size: 42px; margin: 10px 0; color: var(--rotor-orange);">109.8%</h3>
+            <p style="font-size: 14px; color: #888;">Post-enhancement phase</p>
+        </div>
+        <div class="info-box" style="text-align: center; border-bottom: 4px solid #28a745;">
+            <p style="text-transform: uppercase; font-weight: 800; font-size: 12px; color: #666;">Requirement Met</p>
+            <h3 style="font-size: 42px; margin: 10px 0; color: #28a745;">218%</h3>
+            <p style="font-size: 14px; color: #888;">Vs. 150J Target</p>
+        </div>
+    </div>
+
+    <!-- Animated Graph Container -->
+    <div class="info-box" style="background: white; padding: 30px; position: relative;">
+        <h4 style="margin-bottom: 20px; color: var(--card-blue);">Energy Output Comparison (Joules)</h4>
+        <canvas id="resultsChart" style="width: 100%; max-height: 400px;"></canvas>
+    </div>
+</section>
+
+    <!-- FUTURE RECOMMENDATIONS SECTION (VERTICAL LAYOUT) -->
+        <section id="futures">
+
+            <div class="section-header reveal">
+                <div class="reveal" style="margin-bottom: 50px; text-align: center;">
+            <h2 style="color: var(--card-blue); font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 36px; text-transform: uppercase;">
+                Future Recommendations
+            </h2>
+            <div style="width: 80px; height: 5px; background: var(--rotor-orange); margin: 15px auto; border-radius: 10px;"></div>
+        </div>
+                <div class="underline"></div>
+                <p style="max-width: 800px; margin: 0 auto; color: #666; line-height: 1.6;">
+                    As technology advances, we acknowledge that no project is perfect. These recommendations serve as a roadmap for future teams to iterate upon our design and push the boundaries of efficiency.
+                </p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px;">
+                
+                <!-- Point 1 -->
+                <div class="info-box reveal" style="border-left: 8px solid var(--rotor-orange); margin-bottom: 0;">
+                    <h3 style="color: var(--card-blue); margin-top: 0; display: flex; align-items: center;">
+                        <span style="background: var(--rotor-orange); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 15px;">1</span>
+                        Metallic Gearbox Integration
+                    </h3>
+                    <p style="font-size: 16px; color: #444; line-height: 1.7; margin-left: 47px;">
+                        Metallic gearboxes should be utilized in the turbine assembly to handle significantly higher torque and continuous mechanical loads. Their superior resistance to temperature fluctuations and long-term fatigue makes them essential for a durable, industrial-grade system.
+                    </p>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="info-box reveal" style="border-left: 8px solid var(--rotor-orange); margin-bottom: 0;">
+                    <h3 style="color: var(--card-blue); margin-top: 0; display: flex; align-items: center;">
+                        <span style="background: var(--rotor-orange); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 15px;">2</span>
+                        Structural Interlocking Stability
+                    </h3>
+                    <p style="font-size: 16px; color: #444; line-height: 1.7; margin-left: 47px;">
+                        By interlocking the turbine tower directly with the base, the structure becomes more stable. This mechanical integration allows the tower to resist higher airspeeds without deflection, ensuring the system remains upright and vibration-free during peak winds.
+                    </p>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="info-box reveal" style="border-left: 8px solid var(--rotor-orange); margin-bottom: 0;">
+                    <h3 style="color: var(--card-blue); margin-top: 0; display: flex; align-items: center;">
+                        <span style="background: var(--rotor-orange); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 15px;">3</span>
+                        Carbon Fiber Axis Implementation
+                    </h3>
+                    <p style="font-size: 16px; color: #444; line-height: 1.7; margin-left: 47px;">
+                        Transitioning to carbon fiber for the axis connecting the blades and gears offers an ultra-strong, lightweight alternative to traditional metals. Composed of thin crystalline filaments, this material reduces rotational inertia, allowing the turbine to generate power more efficiently at lower wind speeds.
+                    </p>
+                </div>
+
+                <!-- Point 4 -->
+                <div class="info-box reveal" style="border-left: 8px solid var(--rotor-cyan); margin-bottom: 0;">
+                    <h3 style="color: var(--card-blue); margin-top: 0; display: flex; align-items: center;">
+                        <span style="background: var(--rotor-cyan); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 15px;">4</span>
+                        Advanced Sensors and Electronics
+                    </h3>
+                    <p style="font-size: 16px; color: #444; line-height: 1.7; margin-left: 47px;">
+                        Integrating smart electronics, such as pitch angle sensors, enables the turbine to identify the most productive angle for the blades in real-time. This active adjustment maximizes the electric current generated across varying weather conditions.
+                    </p>
+                </div>
+
+                <!-- Point 5 -->
+                <div class="info-box reveal" style="border-left: 8px solid var(--rotor-cyan); margin-bottom: 0;">
+                    <h3 style="color: var(--card-blue); margin-top: 0; display: flex; align-items: center;">
+                        <span style="background: var(--rotor-cyan); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; margin-right: 15px;">5</span>
+                        Mechanical Braking Pads
+                    </h3>
+                    <p style="font-size: 16px; color: #444; line-height: 1.7; margin-left: 47px;">
+                        Essential for safety, a braking pad system must be included to stop the turbine during extreme events. This allows for critical mechanical repairs and prevents structural damage during storms that exceed the system's operational limits.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    <!-- FOOTER -->
+    <footer style="text-align: center; padding: 80px 20px 60px 20px; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 50px;">
+        <p style="color: var(--card-blue); font-weight: 800; font-size: 18px; margin: 0 0 10px 0;">
+            Red Sea STEM High School | Grade 10 Semester 2
+        </p>
+        <p style="color: #666; font-weight: 500; font-size: 15px; margin: 0;">
+            Mohamed Monsef • Ahmed Mahmoud • Omar Allam • Alhussein Mostafa • Ahmed Wahid
+        </p>
     </footer>
 
+    <script>
+    // Reveal animation logic
+    function reveal() {
+        const reveals = document.querySelectorAll(".reveal");
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const elementTop = el.getBoundingClientRect().top;
+            if (elementTop < windowHeight - 100) { 
+                el.classList.add("active"); 
+                // Trigger chart animation when section is revealed
+                if(el.id === 'results') { startChart(); }
+            }
+        });
+    }
+
+    // Chart.js implementation
+    let chartStarted = false;
+    function startChart() {
+        if (chartStarted) return;
+        chartStarted = true;
+        
+        const ctx = document.getElementById('resultsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['0 min', '1 min', '2 min', '3 min', '4 min', '5 min'],
+                datasets: [{
+                    label: 'ROTOR X Output (J)',
+                    data: [0, 65, 132, 198, 260, 327.88],
+                    borderColor: '#00CCFF',
+                    backgroundColor: 'rgba(0, 204, 255, 0.1)',
+                    borderWidth: 4,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#003366'
+                }, {
+                    label: 'Target Goal (J)',
+                    data: [0, 30, 60, 90, 120, 150],
+                    borderColor: '#ff6600',
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+
+    window.addEventListener("scroll", reveal);
+    window.onload = reveal;
+</script>
 </body>
 </html>
