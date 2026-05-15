@@ -248,6 +248,29 @@
             .material-text-box { width: 100%; }
             .mechanism-grid { grid-template-columns: 1fr !important; }
         }
+        /* Responsive Video Wrapper */
+    .video-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 800px; /* Limits width on large screens for better layout */
+        margin: 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        background: #000;
+        aspect-ratio: 16 / 9; /* Maintains modern widescreen presentation */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .video-wrapper video,
+    .video-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: none;
+    }
         
     </style>
     <!-- MathJax for rendering equations -->
@@ -426,7 +449,7 @@
             </div>
             <div style="text-align: center;">
                 <img src="figure6.png" alt="Three-bladed HAWT prototype assembly" style="max-width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <p style="font-size: 12px; color: #666; margin-top: 10px;">Figure 6: Three-bladed HAWT prototype assembly.</p>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"> Three-bladed HAWT prototype assembly.</p>
             </div>
         </div>
 
@@ -436,7 +459,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;" class="mechanism-grid">
                 <div style="text-align: center;">
                     <img src="figure7.jpeg" alt="Pressure differentials over the airfoil" style="max-width: 100%; border-radius: 20px;">
-                    <p style="font-size: 12px; color: #666; margin-top: 10px;">Figure 7: Airflow visualization showing high and low pressure zones.</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 10px;"> Airflow visualization showing high and low pressure zones.</p>
                 </div>
                 <div>
                     <p>
@@ -509,6 +532,15 @@
         <h4 style="margin-bottom: 20px; color: var(--card-blue);">Energy Output Comparison (Joules)</h4>
         <canvas id="resultsChart" style="width: 100%; max-height: 400px;"></canvas>
     </div>
+    <div class="info-box reveal" style="margin-top: 30px; padding: 30px;">
+                <h4 style="margin-top: 0; margin-bottom: 20px; color: var(--card-blue);">Prototype Test Video</h4>
+                <div class="video-wrapper">
+                    <video controls poster="path-to-thumbnail.jpg">
+                        <source src="your-test-video.mov" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
 </section>
 
     <!-- FUTURE RECOMMENDATIONS SECTION (VERTICAL LAYOUT) -->
